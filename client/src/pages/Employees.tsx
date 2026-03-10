@@ -48,6 +48,18 @@ export default function Employees() {
 
   useEffect(() => { loadList(); }, []);
 
+  // close modal on Escape key
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      if (e.key === 'Escape') {
+        if (showForm) closeForm();
+        if (toDelete) setToDelete(null);
+      }
+    }
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [showForm, toDelete]);
+
   // basic client-side validation before we hit the API
   function validate(): boolean {
     const errs: Partial<FormFields> = {};

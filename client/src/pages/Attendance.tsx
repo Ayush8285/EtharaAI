@@ -261,7 +261,9 @@ export default function Attendance() {
                   </thead>
                   <tbody className="divide-y divide-gray-50">
                     {records.map((record) => {
-                      const d = new Date(record.date);
+                      // append time to prevent UTC shifting the displayed day
+                      const raw = record.date;
+                      const d = new Date(raw.length === 10 ? raw + 'T00:00:00' : raw);
                       return (
                         <tr key={record._id} className="hover:bg-gray-50/50 transition-colors">
                           <td className="whitespace-nowrap px-6 py-3.5 text-sm text-gray-900">

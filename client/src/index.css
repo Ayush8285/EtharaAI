@@ -1,19 +1,44 @@
 @import "tailwindcss";
 
+* {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* cursor pointer on all clickable elements */
+button,
+a,
+select,
+[role="button"],
+input[type="radio"],
+input[type="checkbox"],
+label:has(input) {
+  cursor: pointer;
+}
+
 /* smooth page transitions */
 main {
-  animation: fadeIn 0.2s ease-in;
+  animation: fadeIn 0.25s ease-out;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(4px); }
+  from { opacity: 0; transform: translateY(6px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* smooth modal backdrop */
+.fixed.inset-0 {
+  animation: backdropIn 0.2s ease-out;
+}
+
+@keyframes backdropIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 /* nicer scrollbar for the main content area */

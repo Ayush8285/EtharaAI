@@ -1,13 +1,13 @@
-from pydantic import BaseModel, EmailStr, field_validator
+from pydantic import BaseModel, EmailStr, Field, field_validator
 from typing import Optional
 from datetime import date as date_type
 
 
 class EmployeeCreate(BaseModel):
-    employeeId: str
-    fullName: str
+    employeeId: str = Field(max_length=30)
+    fullName: str = Field(max_length=150)
     email: EmailStr
-    department: str
+    department: str = Field(max_length=100)
 
     @field_validator("employeeId", "fullName", "department")
     @classmethod

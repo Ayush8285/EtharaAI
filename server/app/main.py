@@ -1,3 +1,4 @@
+import logging
 from fastapi import FastAPI, Request, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
@@ -8,6 +9,8 @@ from app.database import connect_db, close_db
 from app.routes.employees import router as employees_router
 from app.routes.attendance import router as attendance_router
 from app.routes.dashboard import router as dashboard_router
+
+logger = logging.getLogger(__name__)
 
 
 @asynccontextmanager
@@ -57,4 +60,13 @@ async def validation_error_handler(request: Request, exc: RequestValidationError
     return JSONResponse(
         status_code=400,
         content={"success": False, "error": messages[0] if messages else "Invalid request data"},
+    )
+
+
+@app.exception_handler(Exception)
+async def generic_error_handler(request: Request, exc: Exception):
+    logger.exception("Unhandled error on %s %s", request.method, request.url.path)
+    return JSONResponse(
+        status_code=500,
+        content={"success": False, "error": "Internal server error"},
     )

@@ -4,6 +4,8 @@ A simple, production-ready Human Resource Management System that lets an admin m
 
 The focus here was on building something clean and functional — not over-engineered, but genuinely usable as an internal HR tool.
 
+**Live Demo:** [Frontend](https://ethara-ai-one.vercel.app)
+
 ---
 
 ## What it does
@@ -76,6 +78,9 @@ cd EtharaAI
 
 ```bash
 cd server
+python -m venv venv
+# On Windows: venv\Scripts\activate
+# On macOS/Linux: source venv/bin/activate
 cp .env.example .env
 # open .env and paste your MongoDB connection string
 pip install -r requirements.txt
@@ -102,10 +107,10 @@ Opens at `http://localhost:5173`. The Vite dev server proxies all `/api` request
 |--------|---------------------------------------|-------------------------------------|
 | GET    | `/api/employees`                      | List all employees                  |
 | POST   | `/api/employees`                      | Add a new employee                  |
-| GET    | `/api/employees/:id`                  | Get a single employee by Mongo ID   |
-| DELETE | `/api/employees/:id`                  | Delete employee + their attendance  |
+| GET    | `/api/employees/{id}`                 | Get a single employee by Mongo ID   |
+| DELETE | `/api/employees/{id}`                 | Delete employee + their attendance  |
 | POST   | `/api/attendance`                     | Mark attendance for a date          |
-| GET    | `/api/attendance/employee/:empId`     | Get attendance history (with optional `from`/`to` query params) |
+| GET    | `/api/attendance/employee/{empId}`    | Get attendance history (with optional `from`/`to` query params) |
 | GET    | `/api/dashboard`                      | Dashboard summary (today's stats)   |
 | GET    | `/api/health`                         | Health check                        |
 
