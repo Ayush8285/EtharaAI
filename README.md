@@ -1,20 +1,20 @@
 # HRMS Lite
 
-A simple, production-ready Human Resource Management System that lets an admin manage employee records and track daily attendance. Built as a full-stack project with a React frontend and a Python (FastAPI) backend, backed by MongoDB.
+A lightweight Human Resource Management System for managing employee records and tracking daily attendance. Built with React + TypeScript on the frontend and Python (FastAPI) on the backend, with MongoDB for storage.
 
-The focus here was on building something clean and functional — not over-engineered, but genuinely usable as an internal HR tool.
+I kept the scope tight on purpose — the goal was a clean, working app that covers the essentials without overcomplicating things.
 
-**Live Demo:** [Frontend](https://ethara-ai-one.vercel.app)
+**Live Demo:** [https://ethara-ai-one.vercel.app]
 
 ---
 
-## What it does
+## Features
 
-- **Employee directory** — Add employees with their ID, name, email, and department. View the full list, or delete someone (which also cleans up their attendance records).
-- **Attendance tracking** — Pick an employee, select a date, and mark them as Present or Absent. The system prevents duplicate entries for the same day.
-- **Dashboard** — A quick overview showing how many employees exist, who's present/absent today, and who hasn't been marked yet.
-- **Date filtering** — Filter any employee's attendance history by a date range to see just the records you need.
-- **Summary stats** — Each employee's attendance view shows total present days, absent days, and overall record count.
+- **Employee directory** — Add employees with their ID, name, email, and department. View the full list, or delete someone (which also removes their attendance records).
+- **Attendance tracking** — Select an employee, pick a date, and mark them as Present or Absent. The system won't let you mark the same person twice for the same day.
+- **Dashboard** — Shows a quick summary: total employees, who's present/absent today, and who hasn't been marked yet.
+- **Date filtering** — Filter any employee's attendance history by a date range.
+- **Summary stats** — Each employee's attendance page shows their total present days, absent days, and record count.
 
 ---
 
@@ -59,13 +59,13 @@ EtharaAI/
 
 ---
 
-## How to run it locally
+## Running locally
 
 ### Prerequisites
 
-- **Python 3.11+** (for the backend)
-- **Node.js 18+** (for the frontend)
-- **MongoDB** — either a local instance or a free [MongoDB Atlas](https://www.mongodb.com/atlas) cluster
+- Python 3.11+
+- Node.js 18+
+- MongoDB — either local or a free [Atlas](https://www.mongodb.com/atlas) cluster
 
 ### 1. Clone the repo
 
@@ -87,7 +87,7 @@ pip install -r requirements.txt
 uvicorn app.main:app --reload --port 5000
 ```
 
-The API will be available at `http://localhost:5000`. You can also check `http://localhost:5000/docs` for the auto-generated Swagger UI.
+The API runs at `http://localhost:5000`. FastAPI also gives you auto-generated docs at `http://localhost:5000/docs` which is handy for testing.
 
 ### 3. Start the frontend
 
@@ -97,7 +97,7 @@ npm install
 npm run dev
 ```
 
-Opens at `http://localhost:5173`. The Vite dev server proxies all `/api` requests to the backend automatically.
+Opens at `http://localhost:5173`. Vite proxies `/api` requests to the backend, so everything just works.
 
 ---
 
@@ -116,18 +116,17 @@ Opens at `http://localhost:5173`. The Vite dev server proxies all `/api` request
 
 ---
 
-## Assumptions and Limitations
+## Assumptions & Limitations
 
-- **Single admin** — There's no login or authentication. The app assumes one admin user.
-- **Scope** — Leave management, payroll, role-based access, and other advanced HR features are intentionally out of scope.
-- **Attendance** — Tracked per calendar day (UTC). You can't mark the same employee twice for the same date.
-- **Employee ID** — A manually entered string (like `EMP001`). The system enforces uniqueness on both the ID and the email.
+- No login/auth — assumes a single admin user
+- Leave management, payroll, roles etc. are out of scope
+- Attendance is per calendar day (UTC), no duplicate entries allowed
+- Employee ID is a manually entered string like `EMP001` — uniqueness is enforced on both ID and email
 
 ---
 
 ## Deployment
 
-- **Frontend** is deployed on [Vercel](https://vercel.com) with the root directory set to `client/`.
-- **Backend** is deployed on [Render](https://render.com) as a Python web service with root directory `server/`, build command `pip install -r requirements.txt`, and start command `uvicorn app.main:app --host 0.0.0.0 --port $PORT`.
+Frontend is on [Vercel](https://vercel.com) (root directory: `client/`). Backend is on [Render](https://render.com) as a Python web service (root directory: `server/`).
 
-Both the `MONGODB_URI` and `PORT` environment variables are configured on the respective platforms.
+Env vars on Render: `MONGODB_URI`, `PORT`. On Vercel: `VITE_API_URL` (points to the Render backend URL).
