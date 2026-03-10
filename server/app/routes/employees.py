@@ -21,7 +21,7 @@ def serialize_employee(doc: dict) -> dict:
 @router.get("")
 async def get_employees():
     db = get_db()
-    cursor = db.employees.find().sort("createdAt", -1)
+    cursor = db.employees.find().sort("employeeId", 1)
     employees = [serialize_employee(doc) async for doc in cursor]
     return {"success": True, "count": len(employees), "data": employees}
 
